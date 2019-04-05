@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: WCAdapter
+Implementation-Version: 0.1.0
+Built-By: TIJUANA
+Implementation-Vendor-Id: org.springframework
+Build-Jdk: 1.8.0_201
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/WCAdapter
+Created-By: Maven Integration for Eclipse
+

@@ -1,0 +1,567 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>WooCommerce Adapter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<!--   <link rel="stylesheet" href ="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" >-->
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/responsive/1.0.7/css/responsive.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="/css/cssex.css">
+</head>
+<body>
+
+	<div class="content" >
+		
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<h2 align="center" >WooCommerce Data</h2>
+			</div>
+		
+		
+			<div class="col-sm-12 col-md-12 col-lg-12" align="center">
+				<button type="button" class="btn btn-success">Load</button>
+			</div>
+		
+		
+		
+			<div class="col-sm-12 col-md-12 col-lg-12">
+				<table class="display responsive nowrap" id="idtable"
+					cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th class="all">Id</th>
+							<th class="none">SUR_Order</th>
+							<th class="desktop">key</th>
+							<th class="">Status</th>
+							<th class="all">Detail</th>
+						</tr>
+					</thead>
+					<tr th:each="wccomer: ${wclist}">
+						<td class="tdc" th:text="${wccomer.id}" />
+						<td th:text="${wccomer.ot_sur}" />
+						<td th:text="${wccomer.ot_rta}" />
+						<td th:text="${wccomer.status}" />
+						<td>
+							<button type="button" class="btn btn-primary" data-toggle="modal"
+								data-target="#myModal">View</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+		
+	
+
+	<!-- The Modal -->
+	<div class="modal" id="myModal">
+		<div class="modal-dialog modal-lg ">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">Order Details</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					<div class="content">
+
+						<h3>Details of the Order..</h3>
+						<br>
+						<!-- Nav tabs -->
+						<ul class="nav nav-tabs flex-column flex-md-row" role="tablist">
+							<li class="nav-item"><a class="nav-link active"
+								data-toggle="tab" href="#home">Order</a></li>
+							<li class="nav-item"><a class="nav-link" data-toggle="tab"
+								href="#menu1">Billing</a></li>
+							<li class="nav-item"><a class="nav-link" data-toggle="tab"
+								href="#menu2">Shipping</a></li>
+							<li class="nav-item"><a class="nav-link" data-toggle="tab"
+								href="#menu3">Payment</a></li>
+
+							<li class="nav-item"><a class="nav-link" data-toggle="tab"
+								href="#menu4">Items</a></li>
+
+							<li class="nav-item"><a class="nav-link" data-toggle="tab"
+								href="#menu5">Lines</a></li>
+
+							<li class="nav-item"><a class="nav-link" data-toggle="tab"
+								href="#menu6">Links</a></li>
+
+							<li class="nav-item"><a class="nav-link" data-toggle="tab"
+								href="#menu7">Raw Data</a></li>
+
+
+						</ul>
+
+						<!-- Tab panes -->
+						<div class="tab-content">
+							<div id="home" class="container tab-pane active">
+								<br>
+								<h3>Order</h3>
+
+								<div class="row">
+									<div class="col-md-6">
+										<p>Id:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="id"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<p>Status:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="status"></p>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-6">
+										<p>Number:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="number"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<p>Currency:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="currency"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<p>customer_id:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="customer_id"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<p>discount_total:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="discount_total"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<p>discount_tax:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="discount_tax"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<p>shipping_total:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="shipping_total"></p>
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col-md-6">
+										<p>shipping_tax:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="shipping_tax"></p>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-6">
+										<p>cart_tax:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="cart_tax"></p>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-6">
+										<p>total:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="total"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<p>total_tax:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="total_tax"></p>
+									</div>
+								</div>
+
+
+
+
+							</div>
+							<div id="menu1" class="container tab-pane fade">
+								<br>
+								<h3>Billing</h3>
+
+
+
+								<div class="row">
+									<div class="col-md-6">
+										<p>billing first name:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="billing_first_name"></p>
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col-md-6">
+										<p>billing last name:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="billing_last_name"></p>
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col-md-6">
+										<p>billing company:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="billing_company"></p>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-6">
+										<p>billing_address_1:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="billing_address_1"></p>
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col-md-6">
+										<p>billing_address_2:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="billing_address_2"></p>
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col-md-6">
+										<p>billing_city:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="billing_city"></p>
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col-md-6">
+										<p>billing_state:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="billing_state"></p>
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col-md-6">
+										<p>billing_postcode:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="billing_postcode"></p>
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col-md-6">
+										<p>billing_country:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="billing_country"></p>
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col-md-6">
+										<p>billing_email:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="billing_email"></p>
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col-md-6">
+										<p>billing_phone:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="billing_phone"></p>
+									</div>
+								</div>
+							</div>
+							<div id="menu2" class="container tab-pane fade">
+								<br>
+								<h3>Shipping</h3>
+
+								<div class="row">
+									<div class="col-md-6">
+										<p>shipping_first_name:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="shipping_first_name"></p>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-6">
+										<p>shipping_last_name:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="shipping_last_name"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<p>shipping_company:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="shipping_company"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<p>shipping_address_1:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="shipping_address_1"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<p>shipping_address_2:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="shipping_address_2"></p>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-6">
+										<p>shipping_city:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="shipping_city"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<p>shipping_state:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="shipping_state"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<p>shipping_postcode:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="shipping_postcode"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<p>shipping_country:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="shipping_country"></p>
+									</div>
+								</div>
+							</div>
+
+							<div id="menu3" class="container tab-pane fade">
+								<br>
+								<h3>Payment</h3>
+
+								<div class="row">
+									<div class="col-md-6">
+										<p>payment_method:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="payment_method"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<p>payment_method_title:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="payment_method_title"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<p>transaction_id:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="transaction_id"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<p>customer_ip_address:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="customer_ip_address"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<p>customer_user_agent:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="customer_user_agent"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<p>created_via:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="created_via"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<p>customer_note:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="customer_note"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<p>date_completed:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="date_completed"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<p>date_paid:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="date_paid"></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<p>cart_hash:</p>
+									</div>
+									<div class="col-md-6">
+										<p id="cart_hash"></p>
+									</div>
+								</div>
+
+							</div>
+
+							<div id="menu4" class="container tab-pane fade">
+								<br>
+								<h3>Items</h3>
+								<div id="submenu4"></div>
+
+
+
+							</div>
+
+							<div id="menu5" class="container tab-pane fade">
+								<br>
+								<h3>Lines</h3>
+								<div id="submenu5"></div>
+							</div>
+
+							<div id="menu6" class="container tab-pane fade">
+								<br>
+								<h3>Links</h3>
+								<div id="submenu6"></div>
+							</div>
+
+							<div id="menu7" class="container tab-pane fade">
+								<br>
+								<h3>Json</h3>
+
+
+								<div id="submenu7" style="word-break: break-all;"></div>
+
+
+							</div>
+						</div>
+
+					</div>
+
+
+				</div>
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	
+
+	</div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	crossorigin="anonymous"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/scripts.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+<script
+	src="https://cdn.datatables.net/responsive/1.0.7/js/dataTables.responsive.min.js"></script>
+<!--  <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>-->
+</html>
