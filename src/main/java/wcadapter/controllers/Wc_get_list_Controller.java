@@ -65,6 +65,8 @@ public class Wc_get_list_Controller {
 	  @RequestMapping(value = "/submitStatus", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	  @ResponseBody
 	  public String InsertSURStatus(@RequestBody Map mapparams) throws SQLException {
+		  System.out.println("-------------- submitStatus ----------");
+		  
 		  System.out.println("params: "+ mapparams); 
 		   String id= (String) mapparams.get("Key");
 		   String WorkOrder =  (String) mapparams.get("WorkOrder");
@@ -75,9 +77,16 @@ public class Wc_get_list_Controller {
 		   System.out.println("Status - > "+ Status);
 		   System.out.println(" key -> "+ id);
 		   String json= jsonservice.getJsonOT(Integer.parseInt(id));
-	//	  System.out.println("json -----> " + json);
-		   jsonservice.insertJsonObj(WorkOrder, id, json, Status);
-		   
+		   System.out.println("json -> " + json);
+		   System.out.println(" json.length() -> " + json.length());
+		   if (json.length() > 0 ) {
+			   System.out.println(" json INSERTED -> ");
+		//	   jsonservice.insertJsonObj(WorkOrder, id, json, Status);
+		   }else {
+			   System.out.println(" json NOT INSERTED -> ");
+		   }
+			   
+		   System.out.println("--------------End submitStatus ----------"); 
 		  return json.toString();
 	  }
 	  

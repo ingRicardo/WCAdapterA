@@ -6,14 +6,17 @@ package wcadapter.service;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
 import wcadapter.clases.Wc_data;
-
+import wcadapter.clases.WooCommerceObj;
+import wcadapter.clases.JsonParsers;
 
 /**
  * @author TIJUANA
@@ -55,35 +58,43 @@ public class JsonServiceImp implements JsonService{
 	public String getJson(int id) {
 		
 		String sql = "SELECT json FROM wo_data WHERE id = ?";
-	/*	Wc_data wcdata = jdbcTemplate.queryForObject(
-		    query, new Object[] { id }, new WcadataMapper());
-		
-		Wc_data wcdataobj =  new Wc_data(wcdata.getId(),wcdata.getOt_sur(),wcdata.getOt_rta(), wcdata.getJson()
-				, wcdata.getStatus());
-		*/
 		 String json = (String) jdbcTemplate.queryForObject(
 		            sql, new Object[] { id }, String.class);
-		
-		
-			
+							
 		return json;
 	}
 	
 	
 	public String getJsonOT(int id) {
 		
-		String sql = "SELECT json FROM wo_data WHERE ot_rta = ?";
-	/*	Wc_data wcdata = jdbcTemplate.queryForObject(
-		    query, new Object[] { id }, new WcadataMapper());
-		
-		Wc_data wcdataobj =  new Wc_data(wcdata.getId(),wcdata.getOt_sur(),wcdata.getOt_rta(), wcdata.getJson()
-				, wcdata.getStatus());
-		*/
-		 String json = (String) jdbcTemplate.queryForObject(
-		            sql, new Object[] { id }, String.class);
-		
-		
-			
+	
+		List<Map<String, Object>> map = jdbcTemplate.queryForList("SELECT json FROM wo_data WHERE ot_rta = ?", id);
+		 String json = "";
+ 		System.out.println("---------------------- getJson ---------------------");
+ 		 System.out.println("id -> "+ id);
+ 		 System.out.println("map -> "+ map);
+		 System.out.println("map size ----> "+ map.size());
+		 WooCommerceObj wooObj ;
+		 if(map.size() > 0) {
+				
+			 for (Map<String, Object> map2 : map) {
+				System.out.println(" ------ ");
+				try {		
+					json =  map2.get("json").toString();
+					System.out.println("json -> "+ json);
+					wooObj = 	JsonParsers.GetWooComObj(map2.get("json").toString());
+					System.out.println("GET ID -> "+wooObj.getId());					
+
+				} catch ( NumberFormatException | JSONException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+			}
+			 
+		 }
+		 System.out.println("---------------------End  getJson-----------------------------");
 		return json;
 	}
 	
